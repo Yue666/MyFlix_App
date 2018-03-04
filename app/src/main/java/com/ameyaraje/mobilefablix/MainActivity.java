@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                String url = "http://52.38.62.137:8080/fabflixMobile/mobilelogin?email="+email+"&password="+password;
+                String url = "http://13.57.29.131:8080/cs122b-winter18-team-44/servlet/Applogin?email="+email+"&password="+password;
                 JsonObjectRequest sr = new JsonObjectRequest(Request.Method.GET, url,json,
 
                         new Response.Listener<JSONObject>() {
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
 
-                                if (info.equalsIgnoreCase("success")) {
+                                if (info.equalsIgnoreCase("yes")) {
                                     Toast.makeText(getApplication(), "Welcome "+name, Toast.LENGTH_LONG).show();
                                     Intent MovieSearch = new Intent(MainActivity.this, SearchPage.class);
                                     startActivity(MovieSearch);
