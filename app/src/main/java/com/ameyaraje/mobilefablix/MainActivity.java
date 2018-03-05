@@ -75,18 +75,17 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
 
                                 Log.i("Response", response.toString());
-                                String name=null, info = null;
+                                String info = null;
 
 
                                 try {
                                     info = response.getString("info");
-                                    name = response.getString("name");
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
                                 if (info.equalsIgnoreCase("yes")) {
-                                    Toast.makeText(getApplication(), "Welcome "+name, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplication(), "Welcome!", Toast.LENGTH_LONG).show();
                                     Intent MovieSearch = new Intent(MainActivity.this, SearchPage.class);
                                     startActivity(MovieSearch);
 

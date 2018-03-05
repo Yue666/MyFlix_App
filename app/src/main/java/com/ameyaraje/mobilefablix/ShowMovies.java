@@ -1,8 +1,6 @@
 package com.ameyaraje.mobilefablix;
 
-/**
- * Created by ameyaraje on 5/16/16.
- */
+
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
