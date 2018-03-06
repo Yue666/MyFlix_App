@@ -55,14 +55,13 @@ public class ShowMovies extends AppCompatActivity{
         Log.d("Page num value: ",String.valueOf(page));
         final String title = getIntent().getExtras().getString("title");
         final int results = getIntent().getExtras().getInt("results");
-        String moviename;
+        final String moviename;
 
         if (title.contains(" "))
             moviename = title.replace(" ","%20");
         else
             moviename = title;
-
-        String url = "http://52.38.62.137:8080/fabflixMobile/MobileSearchResults?title="+moviename+"&page="+page;
+        String url = "http://13.57.29.131:8080/cs122b-winter18-team-44/servlet/showmovie?title="+moviename+"&page="+page;
         Log.d("URL: ",url);
 
         PrevPage = (Button)findViewById(R.id.PrevPage);
@@ -82,15 +81,10 @@ public class ShowMovies extends AppCompatActivity{
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject json = new JSONObject();
                                 json = response.getJSONObject(i);
-                                String id = json.getString("id");
-                                String title = json.getString("title");
-                                String year = json.getString("year");
-                                String director = json.getString("director");
-                                String banner_url = json.getString("b_url");
-                                String trailer_url = json.getString("t_url");
+                                String title = json.getString("feedback");
+
                                 list.add(title);
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -129,7 +123,6 @@ public class ShowMovies extends AppCompatActivity{
                 startActivity(i);
             }
         });
-
         PrevPage.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -143,7 +136,7 @@ public class ShowMovies extends AppCompatActivity{
 
                 Intent i = new Intent(ShowMovies.this, ShowMovies.class);
                 i.putExtra("pagenum",String.valueOf(page-1));
-                i.putExtra("title",title);
+                i.putExtra("title","big");
                 i.putExtra("results",results);
                 startActivity(i);
             }
@@ -162,7 +155,7 @@ public class ShowMovies extends AppCompatActivity{
 
                 Intent i = new Intent(ShowMovies.this, ShowMovies.class);
                 i.putExtra("pagenum",String.valueOf(page+1));
-                i.putExtra("title",title);
+                i.putExtra("title","big");
                 i.putExtra("results",results);
                 startActivity(i);
             }

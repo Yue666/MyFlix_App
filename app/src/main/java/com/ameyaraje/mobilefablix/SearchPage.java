@@ -78,10 +78,10 @@ public class SearchPage extends AppCompatActivity {
                         if (info.equalsIgnoreCase("yes") && results!=0) {
 
                             Toast.makeText(getApplication(), "Successful, number of search results: " + results, Toast.LENGTH_LONG).show();
-//                            Intent i = new Intent(SearchPage.this,ShowMovies.class);
-//                            i.putExtra("title",title);
-//                            i.putExtra("results",results);
-//                            startActivity(i);
+                            Intent i = new Intent(SearchPage.this,ShowMovies.class);
+                            i.putExtra("title",title);
+                            i.putExtra("results",results);
+                            startActivity(i);
 
                         }
 
