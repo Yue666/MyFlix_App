@@ -67,8 +67,6 @@ public class SearchPage extends AppCompatActivity {
 
                         try {
                             info = response.getString("info");
-
-
                             String cur = response.getString("results");
                             results=Integer.parseInt(cur);
                         } catch (JSONException e) {

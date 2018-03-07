@@ -37,13 +37,16 @@ public class ShowMovies extends AppCompatActivity{
     private Button PrevPage;
     private Button NextPage;
     JSONArray jsonArray;
+    ArrayList<String> list = new ArrayList<>();
+    public boolean lock =true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showmovies);
-        final ArrayList<String> list = new ArrayList<>();
+//         ArrayList<String> list = new ArrayList<>();
         final String pagenum = getIntent().getExtras().getString("pagenum");
         final int page;
 
@@ -82,47 +85,55 @@ public class ShowMovies extends AppCompatActivity{
                                 JSONObject json = new JSONObject();
                                 json = response.getJSONObject(i);
                                 String title = json.getString("feedback");
-
-                                list.add(title);
+                                String year = json.getString("year");
+                                String director = json.getString("director");
+                                String banner_url = json.getString("b_url");
+                                String trailer_url = json.getString("t_url");
+                                list.add("Title:  "+title+"\n"+"Year:  "+year+"\n"+"Director:  " + director+"\n"+"Genres:  "+banner_url+"\n"+"Stars:"+"\n"+trailer_url);
                             }
+
+
+                            displaydata(list);
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }},
 
-                new Response.ErrorListener() {
 
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i("Response", "ERROR");
                     }
                 });
 
-        Volley.newRequestQueue(getApplicationContext()).add(sr);
-
-        final ArrayAdapter<String> Alist = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,list);
-        ListView lv = (ListView)findViewById(R.id.ListView);
-        if (lv != null)
-            lv.setAdapter(Alist);
-
-        else {
-            Toast.makeText(getApplicationContext(), "Some problem", Toast.LENGTH_LONG).show();
-            return;
-        }
+            Volley.newRequestQueue(getApplicationContext()).add(sr);
+//                final ArrayAdapter<String> Alist = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+//                ListView lv = (ListView) findViewById(R.id.ListView);
+//                if (lv != null) {
+//                    lv.setAdapter(Alist);
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Some problem", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
 
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
-                Intent i = new Intent(ShowMovies.this, SingleMovie.class);
-                String movie = list.get(position);
-                i.putExtra("title",movie);
-                startActivity(i);
-            }
-        });
+//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
+//                Intent i = new Intent(ShowMovies.this, SingleMovie.class);
+//                String movie = list.get(position);
+//                i.putExtra("title",movie);
+//                startActivity(i);
+//            }
+//        });
         PrevPage.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -161,6 +172,18 @@ public class ShowMovies extends AppCompatActivity{
             }
         });
     }
+
+    private void displaydata(ArrayList<String> list) {
+        final ArrayAdapter<String> Alist = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+        ListView lv = (ListView) findViewById(R.id.ListView);
+        if (lv != null) {
+            lv.setAdapter(Alist);
+        } else {
+            Toast.makeText(getApplicationContext(), "Some problem", Toast.LENGTH_LONG).show();
+            return;
+        }
+    }
+
 
 
 
